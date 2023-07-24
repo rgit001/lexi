@@ -7,15 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B203083E2A6EFF6600CD27C0 /* MainWordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B203083D2A6EFF6600CD27C0 /* MainWordView.swift */; };
 		B242B12E2A64B7D700FC481A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B242B12D2A64B7D700FC481A /* AppDelegate.swift */; };
 		B242B1302A64B7D700FC481A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B242B12F2A64B7D700FC481A /* SceneDelegate.swift */; };
 		B242B1322A64B7D700FC481A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B242B1312A64B7D700FC481A /* ViewController.swift */; };
 		B242B1372A64B7D800FC481A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B242B1362A64B7D800FC481A /* Assets.xcassets */; };
 		B242B13A2A64B7D800FC481A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B242B1382A64B7D800FC481A /* LaunchScreen.storyboard */; };
 		B242B1462A64BB2000FC481A /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = B242B1452A64BB2000FC481A /* Word.swift */; };
+		B2B35EBA2A6EF9BD009F0AFD /* Rubik-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2B35EB92A6EF9BD009F0AFD /* Rubik-SemiBold.ttf */; };
+		B2B35EBF2A6EF9E0009F0AFD /* Rubik-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2B35EBB2A6EF9DF009F0AFD /* Rubik-Light.ttf */; };
+		B2B35EC02A6EF9E0009F0AFD /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2B35EBC2A6EF9DF009F0AFD /* Rubik-Italic.ttf */; };
+		B2B35EC12A6EF9E0009F0AFD /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2B35EBD2A6EF9E0009F0AFD /* Rubik-LightItalic.ttf */; };
+		B2B35EC22A6EF9E0009F0AFD /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2B35EBE2A6EF9E0009F0AFD /* Rubik-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B203083D2A6EFF6600CD27C0 /* MainWordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MainWordView.swift; path = lexi/View/MainWordView.swift; sourceTree = SOURCE_ROOT; };
 		B242B12A2A64B7D700FC481A /* lexi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lexi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B242B12D2A64B7D700FC481A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B242B12F2A64B7D700FC481A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -24,6 +31,11 @@
 		B242B1392A64B7D800FC481A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B242B13B2A64B7D800FC481A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B242B1452A64BB2000FC481A /* Word.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Word.swift; sourceTree = "<group>"; };
+		B2B35EB92A6EF9BD009F0AFD /* Rubik-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-SemiBold.ttf"; sourceTree = "<group>"; };
+		B2B35EBB2A6EF9DF009F0AFD /* Rubik-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Light.ttf"; sourceTree = "<group>"; };
+		B2B35EBC2A6EF9DF009F0AFD /* Rubik-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Italic.ttf"; sourceTree = "<group>"; };
+		B2B35EBD2A6EF9E0009F0AFD /* Rubik-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-LightItalic.ttf"; sourceTree = "<group>"; };
+		B2B35EBE2A6EF9E0009F0AFD /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,6 +49,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B20308402A6F060D00CD27C0 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B203083D2A6EFF6600CD27C0 /* MainWordView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		B242B1212A64B7D700FC481A = {
 			isa = PBXGroup;
 			children = (
@@ -56,13 +76,12 @@
 		B242B12C2A64B7D700FC481A /* lexi */ = {
 			isa = PBXGroup;
 			children = (
+				B20308402A6F060D00CD27C0 /* View */,
 				B242B1442A64BAFB00FC481A /* Supporting Files */,
 				B242B1432A64BAEB00FC481A /* Controller */,
-				B242B1422A64BAE700FC481A /* View */,
 				B242B1412A64BAE000FC481A /* Model */,
 				B242B12D2A64B7D700FC481A /* AppDelegate.swift */,
 				B242B12F2A64B7D700FC481A /* SceneDelegate.swift */,
-				B242B1312A64B7D700FC481A /* ViewController.swift */,
 				B242B1362A64B7D800FC481A /* Assets.xcassets */,
 				B242B1382A64B7D800FC481A /* LaunchScreen.storyboard */,
 				B242B13B2A64B7D800FC481A /* Info.plist */,
@@ -78,16 +97,10 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		B242B1422A64BAE700FC481A /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		B242B1432A64BAEB00FC481A /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B242B1312A64B7D700FC481A /* ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -95,8 +108,21 @@
 		B242B1442A64BAFB00FC481A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B2B35EB82A6EF98C009F0AFD /* Rubik */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B2B35EB82A6EF98C009F0AFD /* Rubik */ = {
+			isa = PBXGroup;
+			children = (
+				B2B35EBC2A6EF9DF009F0AFD /* Rubik-Italic.ttf */,
+				B2B35EBB2A6EF9DF009F0AFD /* Rubik-Light.ttf */,
+				B2B35EBD2A6EF9E0009F0AFD /* Rubik-LightItalic.ttf */,
+				B2B35EBE2A6EF9E0009F0AFD /* Rubik-Regular.ttf */,
+				B2B35EB92A6EF9BD009F0AFD /* Rubik-SemiBold.ttf */,
+			);
+			path = Rubik;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +183,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2B35EBA2A6EF9BD009F0AFD /* Rubik-SemiBold.ttf in Resources */,
+				B2B35EC22A6EF9E0009F0AFD /* Rubik-Regular.ttf in Resources */,
+				B2B35EC02A6EF9E0009F0AFD /* Rubik-Italic.ttf in Resources */,
+				B2B35EBF2A6EF9E0009F0AFD /* Rubik-Light.ttf in Resources */,
+				B2B35EC12A6EF9E0009F0AFD /* Rubik-LightItalic.ttf in Resources */,
 				B242B13A2A64B7D800FC481A /* LaunchScreen.storyboard in Resources */,
 				B242B1372A64B7D800FC481A /* Assets.xcassets in Resources */,
 			);
@@ -173,6 +204,7 @@
 				B242B1462A64BB2000FC481A /* Word.swift in Sources */,
 				B242B12E2A64B7D700FC481A /* AppDelegate.swift in Sources */,
 				B242B1302A64B7D700FC481A /* SceneDelegate.swift in Sources */,
+				B203083E2A6EFF6600CD27C0 /* MainWordView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
