@@ -70,14 +70,16 @@ class ViewController: UIViewController {
     private func getRandomWord() {
         print("getRandomWord")
         
-        let randomWord = wordDatabase.randomElement()
-        updateMainWord(withWord: randomWord!)
+        if let randomWord = wordDatabase.randomElement() {
+            print("inside if let")
+        mainWordView.updateWordViewLabels(word: randomWord.word, partOfSpeech: randomWord.results[0].partOfSpeech!, definition: randomWord.results[0].definition)
+        }
     }
     
-    private func updateMainWord(withWord word: Word) {
-        mainWordView.wordLabel.text = word.word
-        mainWordView.partOfSpeechLabel.text = word.results[0].partOfSpeech
-        mainWordView.definitionLabel.text = word.results[0].definition
-    }
+//    private func updateMainWord(withWord word: Word) {
+//        mainWordView.wordLabel.text = word.word
+//        mainWordView.partOfSpeechLabel.text = word.results[0].partOfSpeech
+//        mainWordView.definitionLabel.text = word.results[0].definition
+//    }
 }
 
