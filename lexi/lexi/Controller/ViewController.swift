@@ -17,12 +17,32 @@ class ViewController: UIViewController {
         return label
     }()
     
-    let mainWordView: MainWordView = {
-        let view = MainWordView()
+    lazy var mainWordView: MainWordView = {
+        let view = MainWordView(completion: { [weak self] in
+            self?.getRandomWord()
+        })
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "BlueMainWord")
         return view
     }()
+    
+    let wordDatabase = [
+        Word(word: "word1", results: [
+            WordDetail(definition: "w1 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word2", results: [
+            WordDetail(definition: "w2 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word3", results: [
+            WordDetail(definition: "w3 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word4", results: [
+            WordDetail(definition: "w4 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word5", results: [
+            WordDetail(definition: "w5 definition.", partOfSpeech: "partofspeech")
+        ]),
+    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +65,19 @@ class ViewController: UIViewController {
             mainWordView.heightAnchor.constraint(equalToConstant: 200),
             
         ])
+    }
+    
+    private func getRandomWord() {
+        print("getRandomWord")
+        
+        let randomWord = wordDatabase.randomElement()
+        updateMainWord(withWord: randomWord!)
+    }
+    
+    private func updateMainWord(withWord word: Word) {
+        mainWordView.wordLabel.text = word.word
+        mainWordView.partOfSpeechLabel.text = word.results[0].partOfSpeech
+        mainWordView.definitionLabel.text = word.results[0].definition
     }
 }
 
