@@ -8,6 +8,15 @@
 import UIKit
 
 class MainWordView: UIView {
+    var completion: (() -> Void)?
+
+    lazy var refreshButton: RefreshButton = {
+        let button = RefreshButton(completion: { [weak self] in
+            self?.completion?()
+        })
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     let wordLabel: UILabel = {
         let label = UILabel()
@@ -38,12 +47,10 @@ class MainWordView: UIView {
         return label
     }()
     
-    
-    
-    override init(frame: CGRect) {
+    init(completion: (() -> Void)?, frame: CGRect = .zero) {
         super.init(frame: frame)
+        self.completion = completion
         setUpUI()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -51,7 +58,6 @@ class MainWordView: UIView {
     }
     
     private func setUpUI() {
-        
         // Appearance
         layer.cornerRadius = 20
         
@@ -59,6 +65,7 @@ class MainWordView: UIView {
         addSubview(wordLabel)
         addSubview(partOfSpeechLabel)
         addSubview(definitionLabel)
+        addSubview(refreshButton)
         
         NSLayoutConstraint.activate([
             wordLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
@@ -73,10 +80,9 @@ class MainWordView: UIView {
             definitionLabel.leadingAnchor.constraint(equalTo: wordLabel.leadingAnchor),
             definitionLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -20),
             
-            
-            
+            refreshButton.topAnchor.constraint(equalTo: definitionLabel.bottomAnchor, constant: 40),
+            refreshButton.leadingAnchor.constraint(equalTo: wordLabel.leadingAnchor, constant: 300),
+            refreshButton.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
         ])
-        
     }
-    
 }
