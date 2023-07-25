@@ -21,7 +21,6 @@ class WordView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Rubik-Regular", size: 24)
         label.text = "Programming" // Delete me
-        label.backgroundColor = .brown
         return label
     }()
     
@@ -30,7 +29,6 @@ class WordView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Rubik-LightItalic", size: 12)
         label.text = "noun" // delete me
-        label.backgroundColor = .green
         return label
     }()
     
@@ -41,7 +39,6 @@ class WordView: UIView {
         label.text = "creating a sequence of instructions to enable the computer to do something"
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        label.backgroundColor = .purple
         return label
     }()
     
@@ -63,11 +60,11 @@ class WordView: UIView {
         addSubview(definitionLabel)
         
         NSLayoutConstraint.activate([
-            wordLabel.topAnchor.constraint(equalTo: topAnchor),
-            wordLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
+            wordLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            wordLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
             wordLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
             
-            partOfSpeechLabel.topAnchor.constraint(equalTo: wordLabel.topAnchor, constant: 15),
+            partOfSpeechLabel.topAnchor.constraint(equalTo: wordLabel.topAnchor, constant: 10),
             partOfSpeechLabel.leadingAnchor.constraint(equalTo: wordLabel.trailingAnchor, constant: 10),
             partOfSpeechLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor),
             

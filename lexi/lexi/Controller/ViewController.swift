@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         view.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.identifier)
         view.separatorStyle = .singleLine
         view.layer.cornerRadius = 18
-        view.backgroundColor = .yellow
+        view.backgroundColor = UIColor(named: "WhiteTableView")
         return view
     }()
     

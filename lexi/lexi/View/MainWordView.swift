@@ -15,13 +15,11 @@ class MainWordView: UIView {
             self?.completion?()
         })
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .cyan
         return button
     }()
     
     let wordView: WordView = {
         let view = WordView()
-        view.backgroundColor = .blue
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
