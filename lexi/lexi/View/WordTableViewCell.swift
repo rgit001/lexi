@@ -11,14 +11,38 @@ class WordTableViewCell: UITableViewCell {
     
     static let identifier = "WordTableViewCell"
     
-    let wordView: WordView = {
-        let view = WordView()
+    let containerView: UIView = {
+        let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.wordLabel.font = UIFont(name: "Rubik-Regular", size: 12)
-        view.partOfSpeechLabel.font = UIFont(name: "Rubik-LightItalic", size: 9)
-        view.definitionLabel.font = UIFont(name: "Rubik-Regular", size: 12)
-        view.backgroundColor = .brown
+        view.backgroundColor = UIColor(named: "PeachCellColor")
+        view.layer.cornerRadius = 15
         return view
+    }()
+    
+    let wordLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "Rubik-SemiBold", size: 12)
+        label.text = "Programming" // Delete me
+        return label
+    }()
+    
+    let partOfSpeechLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "Rubik-LightItalic", size: 9)
+        label.text = "noun" // delete me
+        return label
+    }()
+    
+    let definitionLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont(name: "Rubik-Regular", size: 11)
+        label.text = "creating a sequence of instructions to enable the computer to do something"
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
+        return label
     }()
 
 //    override func awakeFromNib() {
@@ -42,26 +66,38 @@ class WordTableViewCell: UITableViewCell {
     }
     
     private func setUpUI() {
-        contentView.addSubview(wordView)
-        contentView.backgroundColor = .red
+//        contentView.addSubview(wordView)
+        contentView.addSubview(containerView)
+        containerView.addSubview(wordLabel)
+        containerView.addSubview(partOfSpeechLabel)
+        containerView.addSubview(definitionLabel)
+        contentView.backgroundColor = UIColor(named: "WhiteTableView")
         
         NSLayoutConstraint.activate([
-            wordView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
-            wordView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 10),
-            wordView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -10),
-            wordView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -1),
-            wordView.heightAnchor.constraint(equalToConstant: 60),
+            containerView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+            containerView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            containerView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
+            containerView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            containerView.heightAnchor.constraint(equalToConstant: 50),
             
+            wordLabel.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 5),
+            wordLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            wordLabel.trailingAnchor.constraint(lessThanOrEqualTo: containerView.trailingAnchor),
+            
+            partOfSpeechLabel.topAnchor.constraint(equalTo: wordLabel.topAnchor, constant: 2),
+            partOfSpeechLabel.leadingAnchor.constraint(equalTo: wordLabel.trailingAnchor, constant: 5),
+            partOfSpeechLabel.trailingAnchor.constraint(lessThanOrEqualTo: containerView.trailingAnchor),
+            
+            definitionLabel.topAnchor.constraint(equalTo: partOfSpeechLabel.bottomAnchor, constant: 1),
+            definitionLabel.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 10),
+            definitionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10)
         ])
     }
     
     func updateLabels(word: String, partOfSpeech: String, definition: String) {
-        wordView.wordLabel.text = word
-        wordView.partOfSpeechLabel.text = partOfSpeech
-        wordView.definitionLabel.text = definition
         print("updateLabels called")
-//        wordView.wordLabel.text = "word"
-//        wordView.partOfSpeechLabel.text = "partOfSpeech"
-//        wordView.definitionLabel.text = "definition"
+        wordLabel.text = word
+        partOfSpeechLabel.text = partOfSpeech
+        definitionLabel.text = definition
     }
 }
