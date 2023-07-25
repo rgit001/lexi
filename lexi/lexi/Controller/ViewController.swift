@@ -26,6 +26,17 @@ class ViewController: UIViewController {
         return view
     }()
     
+    // MARK: - TableView code
+    var tableView: UITableView = {
+        let view = UITableView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.identifier)
+        view.separatorStyle = .singleLine
+        view.layer.cornerRadius = 18
+        view.backgroundColor = .yellow
+        return view
+    }()
+    
     let wordDatabase = [
         Word(word: "word1", results: [
             WordDetail(definition: "w1 definition.", partOfSpeech: "partofspeech")
@@ -42,17 +53,49 @@ class ViewController: UIViewController {
         Word(word: "word5", results: [
             WordDetail(definition: "w5 definition.", partOfSpeech: "partofspeech")
         ]),
+        Word(word: "word11", results: [
+            WordDetail(definition: "w1 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word12", results: [
+            WordDetail(definition: "w2 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word13", results: [
+            WordDetail(definition: "w3 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word14", results: [
+            WordDetail(definition: "w4 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word15", results: [
+            WordDetail(definition: "w5 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word21", results: [
+            WordDetail(definition: "w1 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word22", results: [
+            WordDetail(definition: "w2 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word23", results: [
+            WordDetail(definition: "w3 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word24", results: [
+            WordDetail(definition: "w4 definition.", partOfSpeech: "partofspeech")
+        ]),
+        Word(word: "word25", results: [
+            WordDetail(definition: "w5 definition.", partOfSpeech: "partofspeech")
+        ]),
     ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "GrayBackground")
+        tableView.dataSource = self
         setUpUI()
     }
     
     private func setUpUI() {
         view.addSubview(appTitleLabel)
         view.addSubview(mainWordView)
+        view.addSubview(tableView)
         
         NSLayoutConstraint.activate([
             appTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
@@ -63,6 +106,11 @@ class ViewController: UIViewController {
             mainWordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             mainWordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             mainWordView.heightAnchor.constraint(equalToConstant: 200),
+            
+            tableView.topAnchor.constraint(equalTo: mainWordView.bottomAnchor, constant: 30),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
         ])
     }
@@ -75,11 +123,25 @@ class ViewController: UIViewController {
         mainWordView.updateWordViewLabels(word: randomWord.word, partOfSpeech: randomWord.results[0].partOfSpeech!, definition: randomWord.results[0].definition)
         }
     }
-    
-//    private func updateMainWord(withWord word: Word) {
-//        mainWordView.wordLabel.text = word.word
-//        mainWordView.partOfSpeechLabel.text = word.results[0].partOfSpeech
-//        mainWordView.definitionLabel.text = word.results[0].definition
-//    }
 }
 
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        wordDatabase.count
+//        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WordTableViewCell.identifier, for: indexPath) as? WordTableViewCell else {
+            return UITableViewCell()
+        }
+        
+        let word: Word?
+        
+        word = wordDatabase[indexPath.row]
+        
+        cell.updateLabels(word: word!.word, partOfSpeech: word!.results[0].partOfSpeech!, definition: word!.results[0].definition)
+        
+        return cell
+    }
+}
