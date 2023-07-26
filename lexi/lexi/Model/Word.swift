@@ -21,5 +21,6 @@ struct WordDetail: Codable {
     var definition: String
     var partOfSpeech: String?
     var synonyms: [String]?
-    var exampleUsages: [String]?
+    var antonyms: [String]?
+//    var exampleUsages: [String]? // Commented out - not sure if example usage is an actual api field
 }
