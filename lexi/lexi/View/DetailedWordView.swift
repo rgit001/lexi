@@ -22,7 +22,6 @@ class DetailedWordView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont(name: "Rubik-SemiBoldItalic", size: 14)
         label.text = "header" // Delete me
-        label.backgroundColor = .cyan
         label.isHidden = true
         return label
     }()
@@ -44,6 +43,7 @@ class DetailedWordView: UIView {
         label.font = UIFont(name: "Rubik-SemiBold", size: 12)
         label.text = "Definition"
         label.isHidden = true
+        label.textColor = .white
         return label
     }()
     

@@ -52,8 +52,6 @@ class WordView: UIView {
     }
     
     private func setUpUI() {
-        // Appearance
-        
         // Views
         addSubview(wordLabel)
         addSubview(partOfSpeechLabel)

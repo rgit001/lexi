@@ -13,7 +13,6 @@ class DetailedWordViewController: UIViewController {
         let view = UIStackView()
         view.axis = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .blue
         view.spacing = 30
         return view
     }()
@@ -28,14 +27,14 @@ class DetailedWordViewController: UIViewController {
     let horizontalLine: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .black
+        view.backgroundColor = .lightGray
         return view
     }()
     
     let containerView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .yellow
+        view.backgroundColor = UIColor(named: "GrayBackground")
         return view
     }()
     
@@ -45,6 +44,7 @@ class DetailedWordViewController: UIViewController {
         view.backgroundColor = .gray
         view.layer.cornerRadius = 15
         view.footerText = "Definition"
+        view.backgroundColor = UIColor(named: "LightBlueDefinition")
         return view
     }()
     
@@ -55,6 +55,7 @@ class DetailedWordViewController: UIViewController {
         view.layer.cornerRadius = 15
         view.isHidden = true
         view.footerText = "Synonyms"
+        view.backgroundColor = UIColor(named: "LightGreenSynonyms")
         return view
     }()
     
@@ -65,6 +66,7 @@ class DetailedWordViewController: UIViewController {
         view.layer.cornerRadius = 15
         view.isHidden = true
         view.footerText = "Antonyms"
+        view.backgroundColor = UIColor(named: "PinkAntonyms")
         return view
     }()
    
@@ -105,7 +107,6 @@ class DetailedWordViewController: UIViewController {
             wordHeaderLabel.text = word.word
             
             // Determine which word detailed views to display
-            
             // definitiondetailedView is always displayed
             if let partOfSpeech = word.results[0].partOfSpeech {
                 definitionDetailedView.headerText = partOfSpeech
@@ -143,9 +144,9 @@ class DetailedWordViewController: UIViewController {
             horizontalLine.topAnchor.constraint(equalTo: wordHeaderLabel.bottomAnchor),
             horizontalLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             horizontalLine.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            horizontalLine.heightAnchor.constraint(equalToConstant: 1),
+            horizontalLine.heightAnchor.constraint(equalToConstant: 10),
             
-            containerView.topAnchor.constraint(equalTo: horizontalLine.topAnchor),
+            containerView.topAnchor.constraint(equalTo: horizontalLine.topAnchor, constant: 1),
             containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),

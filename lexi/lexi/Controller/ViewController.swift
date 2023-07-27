@@ -140,7 +140,6 @@ extension ViewController: UITableViewDataSource {
         
         let word = wordDatabase[indexPath.row]
         
-//        cell.updateLabels(word: word!.word, partOfSpeech: word!.results[0].partOfSpeech!, definition: word!.results[0].definition)
         cell.updateLabels(word: word.word, partOfSpeech: word.results[0].partOfSpeech, definition: word.results[0].definition)
         
         return cell
