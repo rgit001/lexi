@@ -42,13 +42,13 @@ class ViewController: UIViewController {
             WordDetail(definition: "w1 definition.", partOfSpeech: "partofspeech")
         ]),
         Word(word: "word2", results: [
-            WordDetail(definition: "w2 definition.", partOfSpeech: "partofspeech")
+            WordDetail(definition: "w2 definition.", partOfSpeech: "partofspeech", synonyms: ["syonym1", "synonym2", "synonym3"],  antonyms: ["antonym1", "antonym2", "antonym3"])
         ]),
         Word(word: "word3", results: [
             WordDetail(definition: "w3 definition.", partOfSpeech: "partofspeech")
         ]),
         Word(word: "word4", results: [
-            WordDetail(definition: "w4 definition.", partOfSpeech: "partofspeech")
+            WordDetail(definition: "w4 definition.", partOfSpeech: "partofspeech", antonyms: ["antonym1", "antonym2", "antonym3"])
         ]),
         Word(word: "word5", results: [
             WordDetail(definition: "w5 definition.", partOfSpeech: "partofspeech")
@@ -89,6 +89,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "GrayBackground")
         tableView.dataSource = self
+        tableView.delegate = self
         setUpUI()
     }
     
@@ -136,12 +137,17 @@ extension ViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        let word: Word?
         
-        word = wordDatabase[indexPath.row]
+        let word = wordDatabase[indexPath.row]
         
-        cell.updateLabels(word: word!.word, partOfSpeech: word!.results[0].partOfSpeech!, definition: word!.results[0].definition)
+        cell.updateLabels(word: word.word, partOfSpeech: word.results[0].partOfSpeech, definition: word.results[0].definition)
         
         return cell
+    }
+}
+
+extension ViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        navigationController?.pushViewController(DetailedWordViewController(withWord: self.wordDatabase[indexPath.row]), animated: true)
     }
 }
