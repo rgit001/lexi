@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     
     lazy var mainWordView: MainWordView = {
         let view = MainWordView(completion: { [weak self] in
-            self?.getRandomWord()
+            self?.getRandomWord() // Update this method to call the API
         })
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor(named: "BlueMainWord")
@@ -119,10 +119,27 @@ class ViewController: UIViewController {
     private func getRandomWord() {
         print("getRandomWord")
         
-        if let randomWord = wordDatabase.randomElement() {
-            print("inside if let")
-        mainWordView.updateWordViewLabels(word: randomWord.word, partOfSpeech: randomWord.results[0].partOfSpeech!, definition: randomWord.results[0].definition)
-        }
+//        if let randomWord = wordDatabase.randomElement() {
+//            print("inside if let")
+//        mainWordView.updateWordViewLabels(word: randomWord.word, partOfSpeech: randomWord.results[0].partOfSpeech!, definition: randomWord.results[0].definition)
+//        }
+        
+        // use API to get random word
+        NetworkManager.shared.fetchRandomWord(completion: { [weak self] result in
+            switch result {
+            case .success(let word):
+                DispatchQueue.main.async {
+                    self?.mainWordView.updateWordViewLabels(word: word.word, partOfSpeech: word.results[0].partOfSpeech!, definition: word.results[0].definition)
+                }
+            case .failure(let error):
+                DispatchQueue.main.async {
+                    self?.mainWordView.wordView.wordLabel.text = "Fetch error"
+                    print("Fetch error: \(error.localizedDescription)")
+                }
+            }
+        })
+        
+        
     }
 }
 
