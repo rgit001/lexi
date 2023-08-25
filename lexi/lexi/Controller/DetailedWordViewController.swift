@@ -107,7 +107,7 @@ class DetailedWordViewController: UIViewController {
             wordHeaderLabel.text = word.word
             
             // Determine which word detailed views to display
-            // definitiondetailedView is always displayed
+            // Note: definitiondetailedView is always displayed
             if let partOfSpeech = word.results[0].partOfSpeech {
                 definitionDetailedView.headerText = partOfSpeech
                 definitionDetailedView.bodyText = word.results[0].definition
