@@ -16,6 +16,21 @@ class ViewController: UIViewController {
         label.backgroundColor = .yellow
         return label
     }()
+  
+    /*** START SEARCH CODE ***/
+    lazy var searchView: SearchView = {
+        let searchView = SearchView(searchDefinitionsDelegate: self)
+        searchView.translatesAutoresizingMaskIntoConstraints = false
+
+        // Top right corner, Top left corner
+        searchView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+        return searchView
+    }()
+    
+    var words: [WordDetail]?
+    var selectedWord: String?
+    /*** END SEARCH CODE ***/
+    
     
     lazy var mainWordView: MainWordView = {
         let view = MainWordView(completion: { [weak self] in
@@ -97,6 +112,7 @@ class ViewController: UIViewController {
         view.addSubview(appTitleLabel)
         view.addSubview(mainWordView)
         view.addSubview(tableView)
+        view.addSubview(searchView)
         
         NSLayoutConstraint.activate([
             appTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
@@ -108,10 +124,17 @@ class ViewController: UIViewController {
             mainWordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             mainWordView.heightAnchor.constraint(equalToConstant: 200),
             
-            tableView.topAnchor.constraint(equalTo: mainWordView.bottomAnchor, constant: 30),
+            searchView.topAnchor.constraint(equalTo: mainWordView.bottomAnchor, constant: 1),
+            searchView.leadingAnchor.constraint(equalTo: mainWordView.leadingAnchor, constant: 0),
+            searchView.trailingAnchor.constraint(equalTo: mainWordView.trailingAnchor, constant: 0),
+            searchView.heightAnchor.constraint(equalToConstant: 50),
+            
+//            tableView.topAnchor.constraint(equalTo: mainWordView.bottomAnchor, constant: 30),
+            tableView.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: 30),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             
         ])
     }
@@ -145,8 +168,8 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        wordDatabase.count
-//        return 1
+//        wordDatabase.count
+        return words?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -154,10 +177,13 @@ extension ViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
+        /**** Pre-searchview CODE */
+//        let word = wordDatabase[indexPath.row]
+//        cell.updateLabels(word: word.word, partOfSpeech: word.results[0].partOfSpeech, definition: word.results[0].definition)
+        /*********************/
         
-        let word = wordDatabase[indexPath.row]
+        cell.updateLabels(word: selectedWord, partOfSpeech: words?[indexPath.row].partOfSpeech, definition: words?[indexPath.row].definition)
         
-        cell.updateLabels(word: word.word, partOfSpeech: word.results[0].partOfSpeech, definition: word.results[0].definition)
         
         return cell
     }
@@ -166,5 +192,34 @@ extension ViewController: UITableViewDataSource {
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         navigationController?.pushViewController(DetailedWordViewController(withWord: self.wordDatabase[indexPath.row]), animated: true)
+    }
+}
+
+
+extension ViewController: SearchDefinitionsDelegate {
+    func searchDefinitions(forWord word: String?) {
+        guard let word = word, !word.isEmpty else {
+            print("search field is empty")
+            return
+        }
+        
+        
+        // fetchword code goes here
+        NetworkManager.shared.fetchWordWithDetails(word) { [weak self] result in
+            switch result {
+            case .success(let word):
+                DispatchQueue.main.async {
+                    let resultsThatIncludeADefinition = word.results.filter { $0.definition != nil }
+                    self?.words = resultsThatIncludeADefinition
+                    print(self?.words)
+                    self?.selectedWord = word.word
+//                    self?.collectionView.reloadData()
+                    self?.tableView.reloadData()
+                }
+            case .failure(let error):
+                // good place to handle errors
+                print("failed to decoede word with error: \(error.localizedDescription)")
+            }
+        }
     }
 }
