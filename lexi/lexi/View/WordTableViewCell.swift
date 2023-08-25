@@ -45,17 +45,6 @@ class WordTableViewCell: UITableViewCell {
         return label
     }()
 
-//    override func awakeFromNib() {
-//        super.awakeFromNib()
-//        // Initialization code
-//    }
-//
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//        // Configure the view for the selected state
-//    }
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setUpUI()
@@ -66,7 +55,6 @@ class WordTableViewCell: UITableViewCell {
     }
     
     private func setUpUI() {
-//        contentView.addSubview(wordView)
         contentView.addSubview(containerView)
         containerView.addSubview(wordLabel)
         containerView.addSubview(partOfSpeechLabel)
@@ -93,21 +81,6 @@ class WordTableViewCell: UITableViewCell {
             definitionLabel.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -10)
         ])
     }
-    
-//    func updateLabels(word: String?, partOfSpeech: String?, definition: String?) {
-//        print("updateLabels called")
-//        if let word = word {
-//            wordLabel.text = word
-//        }
-//
-//        if let partOfSpeech = partOfSpeech {
-//            partOfSpeechLabel.text = partOfSpeech
-//        }
-//
-//        if let definition = definition {
-//            definitionLabel.text = definition
-//        }
-//    }
     
     func updateLabels(withWord word: Word?, andIndexPath indexPath: IndexPath) {
         print("updateLabels called")
