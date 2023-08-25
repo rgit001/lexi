@@ -81,11 +81,13 @@ class DetailedWordViewController: UIViewController {
 //        return view
 //    }()
     
-    var word: Word?
+    var word: Word!
+    var indexPath: IndexPath!
 
-    init(withWord word: Word) {
+    init(withWord word: Word, andIndexPath indexPath: IndexPath) {
         super.init(nibName: nil, bundle: nil)
         self.word = word
+        self.indexPath = indexPath
     }
     
     required init?(coder: NSCoder) {
@@ -108,17 +110,17 @@ class DetailedWordViewController: UIViewController {
             
             // Determine which word detailed views to display
             // Note: definitiondetailedView is always displayed
-            if let partOfSpeech = word.results[0].partOfSpeech {
+            if let partOfSpeech = word.results[indexPath.row].partOfSpeech {
                 definitionDetailedView.headerText = partOfSpeech
-                definitionDetailedView.bodyText = word.results[0].definition
+                definitionDetailedView.bodyText = word.results[indexPath.row].definition
             }
             
-            if let synonyms = word.results[0].synonyms {
+            if let synonyms = word.results[indexPath.row].synonyms {
                 synonymsDetailedView.isHidden = false
                 synonymsDetailedView.bodyText = synonyms.joined(separator: ", ")
             }
             
-            if let antonyms = word.results[0].antonyms {
+            if let antonyms = word.results[indexPath.row].antonyms {
                 antonymsDetailedView.isHidden = false
                 antonymsDetailedView.bodyText = antonyms.joined(separator: ", ")
             }

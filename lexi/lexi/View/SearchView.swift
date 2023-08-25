@@ -83,14 +83,5 @@ class SearchView: UIView {
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -1),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -1),
         ])
-        
-        
-        
-        
-        
     }
-    
-    
-    
-    
 }

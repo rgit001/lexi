@@ -51,53 +51,6 @@ class ViewController: UIViewController {
         return view
     }()
     
-    let wordDatabase = [
-        Word(word: "word1", results: [
-            WordDetail(definition: "w1 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word2", results: [
-            WordDetail(definition: "w2 definition.", partOfSpeech: "partofspeech", synonyms: ["syonym1", "synonym2", "synonym3"],  antonyms: ["antonym1", "antonym2", "antonym3"])
-        ]),
-        Word(word: "word3", results: [
-            WordDetail(definition: "w3 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word4", results: [
-            WordDetail(definition: "w4 definition.", partOfSpeech: "partofspeech", antonyms: ["antonym1", "antonym2", "antonym3"])
-        ]),
-        Word(word: "word5", results: [
-            WordDetail(definition: "w5 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word11", results: [
-            WordDetail(definition: "w1 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word12", results: [
-            WordDetail(definition: "w2 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word13", results: [
-            WordDetail(definition: "w3 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word14", results: [
-            WordDetail(definition: "w4 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word15", results: [
-            WordDetail(definition: "w5 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word21", results: [
-            WordDetail(definition: "w1 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word22", results: [
-            WordDetail(definition: "w2 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word23", results: [
-            WordDetail(definition: "w3 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word24", results: [
-            WordDetail(definition: "w4 definition.", partOfSpeech: "partofspeech")
-        ]),
-        Word(word: "word25", results: [
-            WordDetail(definition: "w5 definition.", partOfSpeech: "partofspeech")
-        ]),
-    ]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -177,7 +130,7 @@ extension ViewController: UITableViewDataSource {
 
 extension ViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        navigationController?.pushViewController(DetailedWordViewController(withWord: self.wordDatabase[indexPath.row]), animated: true)
+        navigationController?.pushViewController(DetailedWordViewController(withWord: wordResult!, andIndexPath: indexPath), animated: true)
     }
 }
 
