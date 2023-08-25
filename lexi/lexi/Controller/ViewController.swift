@@ -27,8 +27,7 @@ class ViewController: UIViewController {
         return searchView
     }()
     
-    var words: [WordDetail]?
-    var selectedWord: String?
+    var wordResult: Word?
     /*** END SEARCH CODE ***/
     
     
@@ -129,7 +128,6 @@ class ViewController: UIViewController {
             searchView.trailingAnchor.constraint(equalTo: mainWordView.trailingAnchor, constant: 0),
             searchView.heightAnchor.constraint(equalToConstant: 50),
             
-//            tableView.topAnchor.constraint(equalTo: mainWordView.bottomAnchor, constant: 30),
             tableView.topAnchor.constraint(equalTo: searchView.bottomAnchor, constant: 30),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
@@ -141,11 +139,6 @@ class ViewController: UIViewController {
     
     private func getRandomWord() {
         print("getRandomWord")
-        
-//        if let randomWord = wordDatabase.randomElement() {
-//            print("inside if let")
-//        mainWordView.updateWordViewLabels(word: randomWord.word, partOfSpeech: randomWord.results[0].partOfSpeech!, definition: randomWord.results[0].definition)
-//        }
         
         // use API to get random word
         NetworkManager.shared.fetchRandomWord(completion: { [weak self] result in
@@ -168,8 +161,7 @@ class ViewController: UIViewController {
 
 extension ViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        wordDatabase.count
-        return words?.count ?? 0
+        return wordResult?.results.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -177,13 +169,7 @@ extension ViewController: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        /**** Pre-searchview CODE */
-//        let word = wordDatabase[indexPath.row]
-//        cell.updateLabels(word: word.word, partOfSpeech: word.results[0].partOfSpeech, definition: word.results[0].definition)
-        /*********************/
-        
-        cell.updateLabels(word: selectedWord, partOfSpeech: words?[indexPath.row].partOfSpeech, definition: words?[indexPath.row].definition)
-        
+        cell.updateLabels(withWord: self.wordResult, andIndexPath: indexPath)
         
         return cell
     }
@@ -209,11 +195,7 @@ extension ViewController: SearchDefinitionsDelegate {
             switch result {
             case .success(let word):
                 DispatchQueue.main.async {
-                    let resultsThatIncludeADefinition = word.results.filter { $0.definition != nil }
-                    self?.words = resultsThatIncludeADefinition
-                    print(self?.words)
-                    self?.selectedWord = word.word
-//                    self?.collectionView.reloadData()
+                    self?.wordResult = word
                     self?.tableView.reloadData()
                 }
             case .failure(let error):

@@ -94,22 +94,28 @@ class WordTableViewCell: UITableViewCell {
         ])
     }
     
-    func updateLabels(word: String?, partOfSpeech: String?, definition: String?) {
+//    func updateLabels(word: String?, partOfSpeech: String?, definition: String?) {
+//        print("updateLabels called")
+//        if let word = word {
+//            wordLabel.text = word
+//        }
+//
+//        if let partOfSpeech = partOfSpeech {
+//            partOfSpeechLabel.text = partOfSpeech
+//        }
+//
+//        if let definition = definition {
+//            definitionLabel.text = definition
+//        }
+//    }
+    
+    func updateLabels(withWord word: Word?, andIndexPath indexPath: IndexPath) {
         print("updateLabels called")
+        
         if let word = word {
-            wordLabel.text = word
+            wordLabel.text = word.word
+            definitionLabel.text = word.results[indexPath.row].definition
+            partOfSpeechLabel.text = word.results[indexPath.row].partOfSpeech
         }
-        
-        if let partOfSpeech = partOfSpeech {
-            partOfSpeechLabel.text = partOfSpeech
-        }
-        
-        if let definition = definition {
-            definitionLabel.text = definition
-        }
-            
-//        wordLabel.text = word
-//        partOfSpeechLabel.text = partOfSpeech
-//        definitionLabel.text = definition
     }
 }
