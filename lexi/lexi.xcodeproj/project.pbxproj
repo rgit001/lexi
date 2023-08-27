@@ -16,6 +16,9 @@
 		B203084C2A71CEC100CD27C0 /* Rubik-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B203084B2A71CEC100CD27C0 /* Rubik-SemiBoldItalic.ttf */; };
 		B203084E2A7450EA00CD27C0 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B203084D2A7450EA00CD27C0 /* NetworkManager.swift */; };
 		B20308502A97FAD900CD27C0 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B203084F2A97FAD900CD27C0 /* SearchView.swift */; };
+		B20308532A9ACB7100CD27C0 /* lexi.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B20308512A9ACB7100CD27C0 /* lexi.xcdatamodeld */; };
+		B20308562A9AD04300CD27C0 /* Favorite+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20308542A9AD04300CD27C0 /* Favorite+CoreDataClass.swift */; };
+		B20308572A9AD04300CD27C0 /* Favorite+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20308552A9AD04300CD27C0 /* Favorite+CoreDataProperties.swift */; };
 		B242B12E2A64B7D700FC481A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B242B12D2A64B7D700FC481A /* AppDelegate.swift */; };
 		B242B1302A64B7D700FC481A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B242B12F2A64B7D700FC481A /* SceneDelegate.swift */; };
 		B242B1322A64B7D700FC481A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B242B1312A64B7D700FC481A /* ViewController.swift */; };
@@ -27,6 +30,7 @@
 		B2B35EC02A6EF9E0009F0AFD /* Rubik-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2B35EBC2A6EF9DF009F0AFD /* Rubik-Italic.ttf */; };
 		B2B35EC12A6EF9E0009F0AFD /* Rubik-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2B35EBD2A6EF9E0009F0AFD /* Rubik-LightItalic.ttf */; };
 		B2B35EC22A6EF9E0009F0AFD /* Rubik-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B2B35EBE2A6EF9E0009F0AFD /* Rubik-Regular.ttf */; };
+		B2CC311C2A9BF48E00C638A7 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2CC311B2A9BF48E00C638A7 /* DataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +43,9 @@
 		B203084B2A71CEC100CD27C0 /* Rubik-SemiBoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-SemiBoldItalic.ttf"; sourceTree = "<group>"; };
 		B203084D2A7450EA00CD27C0 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		B203084F2A97FAD900CD27C0 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		B20308522A9ACB7100CD27C0 /* lexi.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = lexi.xcdatamodel; sourceTree = "<group>"; };
+		B20308542A9AD04300CD27C0 /* Favorite+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favorite+CoreDataClass.swift"; sourceTree = "<group>"; };
+		B20308552A9AD04300CD27C0 /* Favorite+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Favorite+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B242B12A2A64B7D700FC481A /* lexi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = lexi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B242B12D2A64B7D700FC481A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B242B12F2A64B7D700FC481A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,6 +59,7 @@
 		B2B35EBC2A6EF9DF009F0AFD /* Rubik-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Italic.ttf"; sourceTree = "<group>"; };
 		B2B35EBD2A6EF9E0009F0AFD /* Rubik-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-LightItalic.ttf"; sourceTree = "<group>"; };
 		B2B35EBE2A6EF9E0009F0AFD /* Rubik-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Rubik-Regular.ttf"; sourceTree = "<group>"; };
+		B2CC311B2A9BF48E00C638A7 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +89,8 @@
 		B242B1212A64B7D700FC481A = {
 			isa = PBXGroup;
 			children = (
+				B20308542A9AD04300CD27C0 /* Favorite+CoreDataClass.swift */,
+				B20308552A9AD04300CD27C0 /* Favorite+CoreDataProperties.swift */,
 				B242B12C2A64B7D700FC481A /* lexi */,
 				B242B12B2A64B7D700FC481A /* Products */,
 			);
@@ -104,6 +114,7 @@
 				B242B1362A64B7D800FC481A /* Assets.xcassets */,
 				B242B1382A64B7D800FC481A /* LaunchScreen.storyboard */,
 				B242B13B2A64B7D800FC481A /* Info.plist */,
+				B20308512A9ACB7100CD27C0 /* lexi.xcdatamodeld */,
 			);
 			path = lexi;
 			sourceTree = "<group>";
@@ -132,6 +143,7 @@
 				B242B12F2A64B7D700FC481A /* SceneDelegate.swift */,
 				B2B35EB82A6EF98C009F0AFD /* Rubik */,
 				B203084D2A7450EA00CD27C0 /* NetworkManager.swift */,
+				B2CC311B2A9BF48E00C638A7 /* DataManager.swift */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -225,8 +237,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B20308532A9ACB7100CD27C0 /* lexi.xcdatamodeld in Sources */,
+				B2CC311C2A9BF48E00C638A7 /* DataManager.swift in Sources */,
 				B20308462A6F34A000CD27C0 /* WordView.swift in Sources */,
 				B242B1322A64B7D700FC481A /* ViewController.swift in Sources */,
+				B20308562A9AD04300CD27C0 /* Favorite+CoreDataClass.swift in Sources */,
 				B203084A2A70760500CD27C0 /* DetailedWordView.swift in Sources */,
 				B20308422A6F082400CD27C0 /* RefreshButton.swift in Sources */,
 				B20308502A97FAD900CD27C0 /* SearchView.swift in Sources */,
@@ -234,6 +249,7 @@
 				B242B1462A64BB2000FC481A /* Word.swift in Sources */,
 				B242B12E2A64B7D700FC481A /* AppDelegate.swift in Sources */,
 				B20308442A6F33F700CD27C0 /* WordTableViewCell.swift in Sources */,
+				B20308572A9AD04300CD27C0 /* Favorite+CoreDataProperties.swift in Sources */,
 				B242B1302A64B7D700FC481A /* SceneDelegate.swift in Sources */,
 				B203083E2A6EFF6600CD27C0 /* MainWordView.swift in Sources */,
 				B20308482A70441200CD27C0 /* DetailedWordViewController.swift in Sources */,
@@ -444,6 +460,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B20308512A9ACB7100CD27C0 /* lexi.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B20308522A9ACB7100CD27C0 /* lexi.xcdatamodel */,
+			);
+			currentVersion = B20308522A9ACB7100CD27C0 /* lexi.xcdatamodel */;
+			path = lexi.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B242B1222A64B7D700FC481A /* Project object */;
 }
