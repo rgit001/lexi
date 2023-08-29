@@ -18,16 +18,39 @@ class DataManager {
     }()
     
     // MARK: - Create
-    static func createFavoriteItem(word: String, partOfSpeech: String, definition: String) {
-        let favoriteItem = Favorite(context: managedObjectContext)
-        favoriteItem.word = word
-        favoriteItem.definition = definition
-        favoriteItem.partOfSpeech = partOfSpeech
-        
+    static func createFavoriteItem(word: String, partOfSpeech: String?, definition: String) {
         do {
-            try managedObjectContext.save()
+            let fetchRequest = NSFetchRequest<Favorite>(entityName: "Favorite")
+            // Fetch any record of this word.
+            fetchRequest.predicate = NSPredicate(format: "word == %@", word)
+            
+            // Determine number of records with this word. We don't want duplicate words in the database.
+            let numOfRecords = try managedObjectContext.count(for: fetchRequest)
+            
+            // If no record of this word exists, then create the word in the db.
+            if numOfRecords == 0 {
+                do {
+                    let favoriteItem = Favorite(context: managedObjectContext)
+                    favoriteItem.word = word
+                    favoriteItem.definition = definition
+                    
+                    if let partOfSpeech = partOfSpeech {
+                        favoriteItem.partOfSpeech = partOfSpeech
+                    } else {
+                        favoriteItem.partOfSpeech = "n/a"
+                    }
+                    print("numOfRecords: \(numOfRecords). Saving context")
+                    
+                    // Word is not in the database so save word.
+                    try managedObjectContext.save()
+                } catch {
+                    print("error saving context: \(error.localizedDescription)")
+                }
+            } else {
+                print("numOfRecords: \(numOfRecords). Not saving context")
+            }
         } catch {
-            // add error handling here
+                print("error saving context: \(error.localizedDescription)")
         }
     }
     
@@ -45,6 +68,7 @@ class DataManager {
     static func fetchFavoriteItem(usingWord word: String, completion: (Favorite?) -> Void) {
         let fetchRequest = NSFetchRequest<Favorite>(entityName: "Favorite")
         fetchRequest.predicate = NSPredicate(format: "word == %@", word)
+        print("fetchFavoriteItem: \(word)")
         
         do {
             let favoriteItem = try managedObjectContext.fetch(fetchRequest)
@@ -66,10 +90,36 @@ class DataManager {
         }
     }
     
+    static func batchDeleteFavorites() {
+        let fetchRequest: NSFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "Favorite")
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        
+        do {
+            try managedObjectContext.executeAndMergeChanges(using: batchDeleteRequest)
+        } catch {
+            print("Batch delete error: \(error.localizedDescription)")
+        }
+    }
+    
     // MARK: - Update
     // TODO: - Decide if an update method is necessary. Right now I don't think it is.
-    
-    
-    
 }
 
+extension NSManagedObjectContext {
+    
+    /// Executes the given `NSBatchDeleteRequest` and directly merges the changes to bring the given managed object context up to date.
+    ///
+    /// - Parameter batchDeleteRequest: The `NSBatchDeleteRequest` to execute.
+    /// - Throws: An error if anything went wrong executing the batch deletion.
+    public func executeAndMergeChanges(using batchDeleteRequest: NSBatchDeleteRequest) throws {
+        // Configure the request to return the IDs of the objects it deletes.
+        batchDeleteRequest.resultType = .resultTypeObjectIDs
+        // Execute request.
+        let result = try execute(batchDeleteRequest) as? NSBatchDeleteResult
+        
+        // Extract the IDs of the deleted managed objects from the request's result.
+        let changes: [AnyHashable: Any] = [NSDeletedObjectsKey: result?.result as? [NSManagedObjectID] ?? []]
+        // Merge the deletions into the app's managed object context.
+        NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [self])
+    }
+}

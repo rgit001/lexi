@@ -9,7 +9,7 @@ import UIKit
 
 class DetailedWordViewController: UIViewController {
     
-    let stackView: UIStackView = {
+    let detailedWordStackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -17,7 +17,20 @@ class DetailedWordViewController: UIViewController {
         return view
     }()
     
-    let wordHeaderLabel: UILabel = {
+    let favoriteButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let symbolConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium, scale: .medium)
+        let imageHollowStar = UIImage(systemName: "star", withConfiguration: symbolConfig)
+        let imageFillStar = UIImage(systemName: "star.fill", withConfiguration: symbolConfig)
+        button.setImage(imageHollowStar, for: .normal) // Display hollow Favorite star when button is in the normal state
+        button.setImage(imageFillStar, for: .selected) // Display a filled star when the button is in selected state
+        button.addTarget(self, action: #selector(favoriteButtonPressed), for: .touchUpInside)
+        
+        return button
+    }()
+   
+    let wordHeaderLabel: UILabel = { // the topmost word displayed on the page
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 36, weight: .bold)
@@ -81,7 +94,10 @@ class DetailedWordViewController: UIViewController {
 //        return view
 //    }()
     
+    var favorite: Favorite? // Store the favorite item fetched from the entity when the view is loaded. Is set in checkFavoritesStar()
+    
     var word: Word!
+    
     var indexPath: IndexPath!
 
     init(withWord word: Word, andIndexPath indexPath: IndexPath) {
@@ -97,16 +113,47 @@ class DetailedWordViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(named: "WordHeader")
+        
+       
+        // Each time view is loaded check to see if the word is a favorite.
+        checkFavoritesStar()
         setUpUI()
-
-        // Do any additional setup after loading the view.
     }
-    
+   
+    override func viewWillDisappear(_ animated: Bool) {
+        print("viewWillDisappear")
+        
+        // Check if word has been favorited
+        if favoriteButton.isSelected {
+            print("favorite is selected")
+            
+            // Add word to Favorite entity
+            DataManager.createFavoriteItem(word: word.word, partOfSpeech: word.results[indexPath.row].partOfSpeech, definition: word.results[indexPath.row].definition)
+            
+        } else {
+            print("favorite is NOT selected")
+            
+            // Delete word from Favorite entity if star has not been selected after exiting the DetailedWordViewController page.
+            if let favorite = self.favorite {
+                DataManager.deleteFavorite(favorite: favorite)
+            }
+        }
+    }
 
+    // Call when view is loaded to check if the favorite star is selected.
+    // Calls fetchFavoriteItem to see if item is in the Entity. If it is, toggle favoriteButton to 'selected" state.
+    private func checkFavoritesStar() {
+        DataManager.fetchFavoriteItem(usingWord: word.word, completion: { [weak self] favorite in
+            if let favorite = favorite {
+                self?.favoriteButton.isSelected.toggle()
+                self?.favorite = favorite
+            }
+        })
+    }
     
     private func setUpUI() {
         if let word = self.word {
-            wordHeaderLabel.text = word.word
+            wordHeaderLabel.text = word.word // the top most word displayed on the page.
             
             // Determine which word detailed views to display
             // Note: definitiondetailedView is always displayed
@@ -124,24 +171,26 @@ class DetailedWordViewController: UIViewController {
                 antonymsDetailedView.isHidden = false
                 antonymsDetailedView.bodyText = antonyms.joined(separator: ", ")
             }
-            
-            
         }
         
-        
+        view.addSubview(favoriteButton)
         view.addSubview(wordHeaderLabel)
         view.addSubview(horizontalLine)
         view.addSubview(containerView)
-        containerView.addSubview(stackView)
-        stackView.addArrangedSubview(definitionDetailedView)
-        stackView.addArrangedSubview(synonymsDetailedView)
-        stackView.addArrangedSubview(antonymsDetailedView)
+        containerView.addSubview(detailedWordStackView)
+        detailedWordStackView.addArrangedSubview(definitionDetailedView)
+        detailedWordStackView.addArrangedSubview(synonymsDetailedView)
+        detailedWordStackView.addArrangedSubview(antonymsDetailedView)
 //        stackView.addArrangedSubview(exampleUsageDetailedView)
         
         NSLayoutConstraint.activate([
             wordHeaderLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             wordHeaderLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15),
-            wordHeaderLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+//            wordHeaderLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            favoriteButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            favoriteButton.leadingAnchor.constraint(equalTo: wordHeaderLabel.trailingAnchor, constant: 25),
+            favoriteButton.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
             
             horizontalLine.topAnchor.constraint(equalTo: wordHeaderLabel.bottomAnchor),
             horizontalLine.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -153,8 +202,8 @@ class DetailedWordViewController: UIViewController {
             containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
-            stackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
-            stackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            detailedWordStackView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: 20),
+            detailedWordStackView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             
             definitionDetailedView.heightAnchor.constraint(equalToConstant: 145),
             definitionDetailedView.widthAnchor.constraint(equalToConstant: 319),
@@ -170,7 +219,13 @@ class DetailedWordViewController: UIViewController {
         ])
     }
     
+    @objc func favoriteButtonPressed(_ sender: UIButton) {
+        sender.isSelected.toggle()  // When button is clicked, toggle the image for each selected state ("normal" or "selected").
+        print("favoriteButton is selected: \(favoriteButton.isSelected)")
+    }
 
+    
+    
     /*
     // MARK: - Navigation
 

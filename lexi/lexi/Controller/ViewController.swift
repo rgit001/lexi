@@ -98,7 +98,7 @@ class ViewController: UIViewController {
             switch result {
             case .success(let word):
                 DispatchQueue.main.async {
-                    self?.mainWordView.updateWordViewLabels(word: word.word, partOfSpeech: word.results[0].partOfSpeech!, definition: word.results[0].definition)
+                    self?.mainWordView.updateWordViewLabels(word: word.word, partOfSpeech: word.results[0].partOfSpeech!, definition: word.results[0].definition) // TODO: - BUG: Some results don't have a partOfSpeech. And this causes the app to crash. So safely unwrap this value before
                 }
             case .failure(let error):
                 DispatchQueue.main.async {
