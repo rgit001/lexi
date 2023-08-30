@@ -133,7 +133,7 @@ class DetailedWordViewController: UIViewController {
         } else {
             print("favorite is NOT selected")
             
-            // Delete word from Favorite entity if star has not been selected after exiting the DetailedWordViewController page.
+            // If a previously favorited word has been unfavorited upon exiting the view, delete word from Favorite entity. 
             if let favorite = self.favorite {
                 DataManager.deleteFavorite(favorite: favorite)
             }

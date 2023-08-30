@@ -91,4 +91,14 @@ class WordTableViewCell: UITableViewCell {
             partOfSpeechLabel.text = word.results[indexPath.row].partOfSpeech
         }
     }
+    
+    func updateFavoriteLabels(withFavorite favorite: Favorite?) {
+        print("updateFavoriteLabels called")
+        
+        if let favorite = favorite {
+            wordLabel.text = favorite.word
+            definitionLabel.text = favorite.definition
+            partOfSpeechLabel.text = favorite.partOfSpeech
+        }
+    }
 }

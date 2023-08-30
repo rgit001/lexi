@@ -16,6 +16,21 @@ class ViewController: UIViewController {
         label.backgroundColor = .yellow
         return label
     }()
+    
+    let favoritesListButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        // symbol configuration
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium, scale: .medium)
+        // uiimage
+        let symbolImage = UIImage(systemName: "text.badge.star", withConfiguration: symbolConfiguration)
+        button.setImage(symbolImage, for: .normal)
+        
+        // Target-Action
+        button.addTarget(self, action: #selector(favoritesListButtonPressed), for: .touchUpInside)
+        return button
+    }()
   
     /*** START SEARCH CODE ***/
     lazy var searchView: SearchView = {
@@ -42,13 +57,13 @@ class ViewController: UIViewController {
     
     // MARK: - TableView code
     var tableView: UITableView = {
-        let view = UITableView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.identifier)
-        view.separatorStyle = .singleLine
-        view.layer.cornerRadius = 18
-        view.backgroundColor = UIColor(named: "WhiteTableView")
-        return view
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.identifier)
+        tableView.separatorStyle = .singleLine
+        tableView.layer.cornerRadius = 18
+        tableView.backgroundColor = UIColor(named: "WhiteTableView")
+        return tableView
     }()
     
 
@@ -65,11 +80,16 @@ class ViewController: UIViewController {
         view.addSubview(mainWordView)
         view.addSubview(tableView)
         view.addSubview(searchView)
+        view.addSubview(favoritesListButton)
         
         NSLayoutConstraint.activate([
             appTitleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
             appTitleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            appTitleLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
+//            appTitleLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
+           
+            favoritesListButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            favoritesListButton.leadingAnchor.constraint(equalTo: appTitleLabel.trailingAnchor, constant: 20),
+            favoritesListButton.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
             
             mainWordView.topAnchor.constraint(equalTo: appTitleLabel.bottomAnchor, constant: 20),
             mainWordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -107,9 +127,13 @@ class ViewController: UIViewController {
                 }
             }
         })
-        
-        
     }
+    
+    @objc func favoritesListButtonPressed() {
+        print("favoritesListButtonPressed")
+        navigationController?.pushViewController(FavoritesViewController(), animated: true)
+    }
+    
 }
 
 extension ViewController: UITableViewDataSource {
