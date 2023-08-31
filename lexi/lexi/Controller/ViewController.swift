@@ -13,7 +13,6 @@ class ViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Lexi"
         label.font = UIFont(name: "Rubik-SemiBold", size: 36)
-        label.backgroundColor = .yellow
         return label
     }()
     
@@ -22,7 +21,7 @@ class ViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         
         // symbol configuration
-        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium, scale: .medium)
+        let symbolConfiguration = UIImage.SymbolConfiguration(pointSize: 30, weight: .medium, scale: .medium)
         // uiimage
         let symbolImage = UIImage(systemName: "text.badge.star", withConfiguration: symbolConfiguration)
         button.setImage(symbolImage, for: .normal)
@@ -36,6 +35,7 @@ class ViewController: UIViewController {
     lazy var searchView: SearchView = {
         let searchView = SearchView(searchDefinitionsDelegate: self)
         searchView.translatesAutoresizingMaskIntoConstraints = false
+        searchView.backgroundColor = UIColor(named: "GrayBackground")
 
         // Top right corner, Top left corner
         searchView.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.identifier)
-        tableView.separatorStyle = .singleLine
+        tableView.separatorStyle = .none
         tableView.layer.cornerRadius = 18
         tableView.backgroundColor = UIColor(named: "WhiteTableView")
         return tableView
@@ -88,15 +88,15 @@ class ViewController: UIViewController {
 //            appTitleLabel.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
            
             favoritesListButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
-            favoritesListButton.leadingAnchor.constraint(equalTo: appTitleLabel.trailingAnchor, constant: 20),
-            favoritesListButton.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor),
+            favoritesListButton.leadingAnchor.constraint(equalTo: appTitleLabel.trailingAnchor),
+            favoritesListButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
             
             mainWordView.topAnchor.constraint(equalTo: appTitleLabel.bottomAnchor, constant: 20),
             mainWordView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             mainWordView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             mainWordView.heightAnchor.constraint(equalToConstant: 200),
             
-            searchView.topAnchor.constraint(equalTo: mainWordView.bottomAnchor, constant: 1),
+            searchView.topAnchor.constraint(equalTo: mainWordView.bottomAnchor, constant: 20),
             searchView.leadingAnchor.constraint(equalTo: mainWordView.leadingAnchor, constant: 0),
             searchView.trailingAnchor.constraint(equalTo: mainWordView.trailingAnchor, constant: 0),
             searchView.heightAnchor.constraint(equalToConstant: 50),

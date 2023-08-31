@@ -55,6 +55,7 @@ class WordTableViewCell: UITableViewCell {
     }
     
     private func setUpUI() {
+        
         contentView.addSubview(containerView)
         containerView.addSubview(wordLabel)
         containerView.addSubview(partOfSpeechLabel)

@@ -28,7 +28,7 @@ class FavoritesViewController: UIViewController {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.register(WordTableViewCell.self, forCellReuseIdentifier: WordTableViewCell.identifier)
-        tableView.separatorStyle = .singleLine
+        tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor(named: "GrayBackground")
         return tableView
     }()
@@ -85,9 +85,10 @@ extension FavoritesViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: WordTableViewCell.identifier, for: indexPath) as? WordTableViewCell else {
+            print("Inside tableview cellforat else")
             return UITableViewCell()
         }
-        
+        cell.contentView.backgroundColor = UIColor(named: "GrayBackground")
         cell.updateFavoriteLabels(withFavorite: favoriteWords[indexPath.row])
         return cell
     }
